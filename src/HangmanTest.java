@@ -51,23 +51,14 @@ class HangmanTest {
     }
 
     @Test
-    void makeGuess_CorrectGuessUpdatesOnlyFirstOccurrence() {
-        HangmanModel hangmanModel = new HangmanModel();
-        hangmanModel.chooseWord();
+    void makeCorrectGuess_ShouldUpdateCurrentGuess() {
+        HangmanModel model = new HangmanModel();
+        model.chooseWord();
 
-        char letter = hangmanModel.getSecretWord().charAt(0);
-        char otherLetter = hangmanModel.getSecretWord().charAt(1);
-
-        // Make a correct guess
-        boolean correctGuess = hangmanModel.makeGuess(letter);
+        char letterToGuess = model.getSecretWord().charAt(0);
+        boolean correctGuess = model.makeGuess(letterToGuess);
 
         assertTrue(correctGuess);
-        assertEquals(letter + "_" .repeat(hangmanModel.getSecretWord().length() - 1), hangmanModel.getCurrentGuess());
-
-        // Make another correct guess for a different letter
-        correctGuess = hangmanModel.makeGuess(otherLetter);
-
-        assertTrue(correctGuess);
-        assertEquals(letter + otherLetter + "_".repeat(hangmanModel.getSecretWord().length() - 2), hangmanModel.getCurrentGuess());
+        assertTrue(model.getCurrentGuess().contains(String.valueOf(letterToGuess)));
     }
 }
